@@ -1,10 +1,16 @@
 const express = require('express')
 const axios = require('axios')
+const taskManager = require('./task-manager.js')
 
 const app = express()
 const port = 3000
+let interval = 1000
+const tqm = new taskManager();
+tqm.init();
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+  await new Promise(resolve => setTimeout(resolve, interval*5));
+  tqm.enqueue(req.ip);
   axios.get('https://catfact.ninja/fact')
     .then(response => {
         res.send({
