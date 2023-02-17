@@ -4,7 +4,7 @@ class TaskManager {
     constructor() {
         this.asyncQueue = new TaskQueue();
         this.syncQueue= new TaskQueue();
-        this.rps = 260;
+        this.rps = 5000;
         this.init();
     }
 
@@ -17,14 +17,17 @@ class TaskManager {
     init() {
         setInterval(this.processTask.bind(this),this.rps);
     }
-    processTask(task_manager) {
-        if (task_manager.isEmpty()) {
-            console.log("EMPTY QUEUE");
+    processTask() {
+        if (!this.syncQueue.isEmpty()) {
+            let currTask = this.syncQueue.dequeue();
+            console.log(currTask.message);
+            return
+        } if (!this.asyncQueue.isEmpty()) {
+            currTask = this.ayncQueue.dequeue();
+            console.log(currTask.message);
             return;
         }
-        let currentReq = task_manager.peek();
-        console.log("current peek: " + currentReq.request);
-        task_manager.dequeue();
+        console.log("Both queues are Empty");
     }
 }
 

@@ -12,8 +12,7 @@ var numberSync = 0
 app.get('/async', async (req, res) => {
   let string = "Async request "
   let message = string + numberAsync;
-  await new Promise(resolve => setTimeout(resolve, interval*10));
-  TaskM.enqueue({message: message})
+  TaskM.pushAsyncTask({message: message})
   requests+=1;
 
   axios.get('https://catfact.ninja/fact')
@@ -40,8 +39,7 @@ app.get('/async', async (req, res) => {
 app.get('/sync', async (req, res) => {
   let string = "Sync request "
   let message = string + numberSync;
-  await new Promise(resolve => setTimeout(resolve, interval*10));
-  TaskM.enqueue({message: message})
+  TaskM.pushSyncTask({message: message})
   requests+=1;
 
   axios.get('https://catfact.ninja/fact')
