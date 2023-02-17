@@ -1,10 +1,10 @@
 const express = require('express')
 const axios = require('axios')
-const taskManager = require('./task-manager.js')
+const TaskQueue = require('./task-queue.js')
 
 const app = express()
 const port = 3000
-const tqm = new taskManager();
+const queue_one = new TaskQueue();
 
 function consume(task_manager) {
   if (task_manager.isEmpty()) {
@@ -16,14 +16,14 @@ function consume(task_manager) {
   task_manager.dequeue();
 }
 
-setInterval(consume, 5000, tqm);
+setInterval(consume, 5000, queue_one);
 
 var requests = 0;
 var interval = 1000;
 
 app.get('/', async (req, res) => {
   await new Promise(resolve => setTimeout(resolve, interval*10));
-  tqm.enqueue({request: requests});
+  queue_one.enqueue({request: requests});
   requests+=1;
 
   axios.get('https://catfact.ninja/fact')

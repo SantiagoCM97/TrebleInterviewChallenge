@@ -1,4 +1,4 @@
-class TaskManager {
+class TaskQueue {
     constructor() {
       this.items = {};
       this.front = 0;
@@ -21,7 +21,7 @@ class TaskManager {
       return this.rear - this.front;
     }
     isEmpty() {
-      return this.rear == 0;
+      return this.getSize() <= 0;
     }
 }
-module.exports = TaskManager
+module.exports = TaskQueue
