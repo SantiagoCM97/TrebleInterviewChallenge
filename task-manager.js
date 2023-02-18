@@ -33,7 +33,7 @@ class TaskManager {
             handler();
             return
         }
-        console.log("Both queues are Empty");
+        //console.log("Both queues are Empty");
     }
 
     async handleSync() {
@@ -48,7 +48,7 @@ class TaskManager {
         }
         axios.post(url, { "body": currTask.body }, { headers: currTask.headers })
             .then(response => {
-                //console.log(currTask.body);
+                console.log(currTask.body);
                 currTask.res.send(response.data);
             })
             .catch(err => {
@@ -60,6 +60,7 @@ class TaskManager {
     }
     async handleAsync() {
         let currTask = this.asyncQueue.dequeue();
+        console.log(currTask.body);
         axios.post(url,{ "body": currTask.body },{headers: currTask.headers});
         return;
     }

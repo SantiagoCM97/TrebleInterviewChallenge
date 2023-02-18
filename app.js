@@ -13,7 +13,7 @@ const port = 3000
 var TaskM = new TaskManager();
 
 app.post('/async', async (req, res) => {
-  console.log("Async request received")
+  // console.log("Async request received")
   let headers = JSON.stringify(req.headers);
   let task = {
       id: uuidv4(),
@@ -22,8 +22,8 @@ app.post('/async', async (req, res) => {
       body: req.body,
       res: res      
   } 
-  console.log("body: " + req.body);
-  console.log("Headers from Request: " + task.headers);
+  // console.log("body: " + req.body);
+  // console.log("Headers from Request: " + task.headers);
   TaskM.pushAsyncTask(task)
   res.send({
     'statusCode': 200,
@@ -32,7 +32,7 @@ app.post('/async', async (req, res) => {
 })
 
 app.post('/sync', async (req, res) => {
-  console.log("Sync request received")
+  // console.log("Sync request received")
   let headers = JSON.stringify(req.headers);
   let task = {
       id: uuidv4(),
@@ -41,8 +41,8 @@ app.post('/sync', async (req, res) => {
       body: req.body,
       res: res      
   } 
-  console.log("body: " + req.body);
-  console.log("Headers from Request: " + task.headers);
+  // console.log("body: " + req.body);
+  // console.log("Headers from Request: " + task.headers);
   TaskM.pushSyncTask(task)
 
   let seconds = 0;
@@ -54,7 +54,7 @@ app.post('/sync', async (req, res) => {
     TaskM.expireTaskById(task.id);
   }, 1000)
 
-  console.log("Sync request pushed to SyncQueue");
+  // console.log("Sync request pushed to SyncQueue");
 })
 
 app.listen(port, () => {
