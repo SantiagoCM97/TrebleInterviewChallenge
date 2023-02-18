@@ -66,15 +66,4 @@ class TaskManager {
     }
 }
 
-function postMockResponse() {
-    return new Promise((resolve, reject) => {
-        setTimeout(11000);
-        resolve({
-            statusCode: 200,
-            body: "Success response mock"
-        })
-    })
-
-}
-
 module.exports = TaskManager
